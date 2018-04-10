@@ -6,6 +6,12 @@ var NewApp = angular.module("NewApp", [
     "ngSanitize"
 ]);
 
+//App Factory
+NewApp.factory("appFactory", ['$rootScope', function($rootScope){
+
+    
+}]);
+
 //App Controller
 NewApp.controller("AppController",['$scope',function(){
     // alert("hhh");

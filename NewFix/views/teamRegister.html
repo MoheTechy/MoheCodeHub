@@ -52,16 +52,8 @@
                                     <input type="text" class="form-control" ng-model="teamSize" placeholder="TOTAL PLAYERS">
                             </div>
                     </div>
-                        <!-- <div class="col-lg-4 form-group">
-                            <label for="exampleInputFile">TEAM LOGO</label>
-                            <input type="file" id="exampleInputFile">
-                            <p class="help-block">Example block-level help text here.</p>
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> Check me out
-                            </label>
-                        </div> -->
+                    
+                        
                         <div class="row">
                             <div class="col-lg-4 form-group">
                             <button type="submit" class="btn btn-primary" ng-click="addNewTeam()">REGISTER</button>
@@ -69,11 +61,64 @@
                         </div>
                         
                     </form>
-
+                    
                 </div>
             </section>
         </div>
     </section>
+<!-- </section> -->
+<!-- Logo Upload -->
+<!--main content start-->
+<!-- <section id="main-content"> -->
+    <section class="wrapper" style="margin-top: -35px;">
+       <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    UPLOAD TEAM LOGO
+                </header>
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="row">
+                            <div class="col-lg-4 form-group">
+                                <label >SELECT TEAM NAME</label>
+                                <select class="form-control m-bot15" ng-model="teamRegID" ng-change="showLogo()">
+                                    <option>SELECT</option>
+                                    <option ng-repeat="tD in teamDetails" value="{{tD.registerID}}">{{tD.teamName}}</option>   
+                                </select>
+                                <p class="help-block"> TEAM REG.ID: {{teamRegID}}</p>
+                            </div>    
+
+                            <div class="col-lg-4 form-group">
+                                <label>TEAM LOGO</label>
+                                <input type='file' file-input="files" accept='text/plain' text="Upload CSV">
+                                <!-- <p class="help-block">{{fileIP}}</p> -->
+                            </div> 
+
+                            <div class="col-lg-4 form-group">
+                                <br>
+                                    <button type="submit" class="btn btn-primary" ng-click="uploadDoc()">UPLOAD</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-lg-4 form-group">
+                                        <p>TEAM LOGO</p>
+                                        <img src="data:image/png;base64,{{logoPNG}}" alt="Red dot" />
+                                    <!-- <img data-ng-src="data:image/png;base64,{{logoPNG}}" data-err-src="images/png/avatar.png"/> -->
+                                </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        </div>
+    </section>
 </section>
+
 <!-- </body> -->
 </html>
+<script type="text/javascript" src="assets/global/plugins/addUploadPlugin.js"></script>
+<script type="text/javascript" src="assets/global/plugins/html2canvas.min.js"></script>
+<script type="text/javascript" src="assets/global/plugins/pdfmake-min.js"></script>
+<script type="text/javascript" src="assets/global/plugins/angular-base64-upload.js"></script>
