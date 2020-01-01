@@ -1,0 +1,66 @@
+<div class="viewPage">
+
+  <div class="heading">{{globals.viewName}}</div>
+
+  <div class="buttonPos">
+    <button class="button" *ngIf="isWrite" mat-raised-button (click)="btnAddNewClick();">
+      <mat-icon>add</mat-icon>
+     Add
+    </button>
+   
+    <button class="button" *ngIf="isWrite" mat-raised-button (click)="exportXlsx();">
+      <mat-icon>grid_on</mat-icon>
+     Export XLS
+    </button>
+  </div>
+
+  <div class="table-container">
+
+    <table style="width:100%;" mat-table [dataSource]="dataSource" [class.isMobile]="isMobile" matSort
+      matSortActive="name" matSortDirection="asc" matSortDisableClear>
+
+      <ng-container matColumnDef="module">
+        <th mat-header-cell *matHeaderCellDef> Module </th>
+        <td mat-cell *matCellDef="let element"> <span class="mobile-label">Module</span>{{element.module}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Permission </th>
+        <td mat-cell *matCellDef="let element"><span class="mobile-label">Permission</span> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="userAndRoles">
+        <th mat-header-cell *matHeaderCellDef> Users & Roles </th>
+        <td mat-cell *matCellDef="let element">
+          <div>
+            <span class="mobile-label">Users & Roles</span>
+            <button mat-icon-button>
+              <mat-icon mat-icon-button class="icon" (click)="getUserAndRoles(element);">list</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef>Delete</th>
+        <td mat-cell *matCellDef="let element">
+          <div>
+            <span class="mobile-label">Delete</span>
+            <button mat-icon-button *ngIf="isWrite">
+              <mat-icon class="redIcon" (click)="deleteTable(element);">delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+    <div class="emptyRecord" *ngIf="temp.length === 0">No records found<hr></div>
+  </div>
+
+  <mat-paginator [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 15, 20, 25]">
+  </mat-paginator>
+
+</div>

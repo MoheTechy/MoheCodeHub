@@ -1,0 +1,87 @@
+<div class="formPage">
+
+  <div class="heading">{{globals.viewName}}</div>
+  <mat-dialog-content>
+  <form class="formMain" fxLayout="column" [formGroup]="enduserForm">
+
+    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Vehicle *" formControlName="vehicle" type="text" autocomplete="off"
+          [ngClass]="{ 'is-invalid': f.vehicle.touched && f.vehicle.errors }">
+        <mat-error *ngIf="f.vehicle.touched && f.vehicle.errors" class="text-danger">
+          <mat-error *ngIf="f.vehicle.errors.required">Vehicle name is required</mat-error>
+          <mat-error *ngIf="f.vehicle.invalid && !f.vehicle.errors.required">Enter valid Vehicle name</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- <mat-form-field fxFlex>
+        <input matInput placeholder="End user short name *" formControlName="clientShortName" type="text"
+          autocomplete="off" [ngClass]="{ 'is-invalid': f.clientShortName.touched && f.clientShortName.errors }">
+        <mat-error *ngIf="f.clientShortName.touched && f.clientShortName.errors" class="text-danger">
+          <mat-error *ngIf="f.clientShortName.errors.required">End user short name is required</mat-error>
+          <mat-error *ngIf="f.clientShortName.invalid && !f.clientShortName.errors.required">Enter valid end user short
+            name</mat-error>
+        </mat-error>
+      </mat-form-field> -->
+    </div>
+
+    <!-- <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Contact person *" formControlName="contactPerson" type="text" autocomplete="off"
+          [ngClass]="{ 'is-invalid': f.contactPerson.touched && f.contactPerson.errors }">
+        <mat-error *ngIf="f.contactPerson.touched && f.contactPerson.errors" class="text-danger">
+          <mat-error *ngIf="f.contactPerson.errors.required">Contact person is required</mat-error>
+          <mat-error *ngIf="f.contactPerson.invalid && !f.contactPerson.errors.required">Enter valid contact person
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Email *" formControlName="email" type="email"
+          [ngClass]="{ 'is-invalid': f.email.touched && f.email.errors }">
+        <mat-error *ngIf="f.email.touched && f.email.errors" class="text-danger">
+          <mat-error *ngIf="f.email.errors.required">Email is required</mat-error>
+          <mat-error *ngIf="f.email.invalid && !f.email.errors.required">Enter valid email</mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+      
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Mobile *" formControlName="mobile" type="number" autocomplete="off"
+          [ngClass]="{ 'is-invalid': f.mobile.touched && f.mobile.errors }">
+        <mat-error *ngIf="f.mobile.touched && f.mobile.errors" class="text-danger">
+          <mat-error *ngIf="f.mobile.errors.required">Mobile is required</mat-error>
+          <mat-error *ngIf="f.mobile.invalid && !f.mobile.errors.required">Enter valid mobile
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+      
+    </div>
+
+    <mat-form-field fxFlex>
+      <textarea matInput placeholder="Address *" formControlName="address" type="text" autocomplete="off"
+        [ngClass]="{ 'is-invalid': f.address.touched && f.address.errors }"></textarea>
+      <mat-error *ngIf="f.address.touched && f.address.errors" class="text-danger">
+        <mat-error *ngIf="f.address.errors.required">Address is required</mat-error>
+        <mat-error *ngIf="f.address.invalid && !f.address.errors.required">Enter valid address</mat-error>
+      </mat-error>
+    </mat-form-field> -->
+
+    <div class="mandatoryText">(*) Mandatory fields</div>
+
+    <div align="center">
+      <button class="saveButton" *ngIf='isNew' (click)="save();" [disabled]="!enduserForm.valid"
+        mat-raised-button>Save</button>
+      <button class="saveButton" *ngIf='isUpdate' (click)="save();" [disabled]="!enduserForm.valid"
+        mat-raised-button>Update</button>
+            
+      <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+    </div>
+
+  </form>
+  </mat-dialog-content>
+</div>

@@ -1,0 +1,8 @@
+<h4 class="modelText" align="center" [hidden]="!deleteItem">Do you want to delete?</h4>
+<h4 class="modelText" align="center" [hidden]="deleteItem">Do you want to close? (Unsaved data will be lost)</h4>
+
+<div align="center">
+  <button class="saveButton" (click)="confirmDelete()" mat-raised-button>Yes</button>
+           
+  <button class="cancelButton" (click)="btnClose()" mat-raised-button>No</button>
+</div>

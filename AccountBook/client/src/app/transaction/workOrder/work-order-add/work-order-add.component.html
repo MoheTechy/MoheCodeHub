@@ -1,0 +1,147 @@
+<div class="formPage">
+
+  <div class="heading">Job</div>
+  <mat-dialog-content>
+
+    <form class="formMain" fxLayout="column" [formGroup]="workOrderForm">
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <mat-form-field fxFlex>
+          <mat-select placeholder="Project *" formControlName="project" [(value)]="project"
+            [ngClass]="{ 'is-invalid': f.project.touched && f.project.errors }">
+            <mat-option *ngFor="let project of projects" [value]="project.name">
+              {{project.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.project.touched && f.project.errors" class="text-danger">
+            <mat-error *ngIf="f.project.errors.required">Project is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input formControlName="enquiryDate" matInput [matDatepicker]="picker" placeholder="Choose a enquiry date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <mat-select placeholder="Client *" formControlName="client" [(value)]="client"
+            [ngClass]="{ 'is-invalid': f.client.touched && f.client.errors }">
+            <mat-option (click)="addClient();">
+              <mat-icon>add</mat-icon>Add client
+            </mat-option>
+            <mat-option *ngFor="let client of clients" [value]="client.id">
+              {{client.clientName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.client.touched && f.client.errors" class="text-danger">
+            <mat-error *ngIf="f.client.errors.required">Client is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <mat-select placeholder="End user *" formControlName="endUser" [(value)]="endUser"
+            [ngClass]="{ 'is-invalid': f.endUser.touched && f.endUser.errors }">
+            <mat-option (click)="addEndUser();">
+              <mat-icon>add</mat-icon>Add end user
+            </mat-option>
+            <mat-option *ngFor="let endUser of endUsers" [value]="endUser.id">
+              {{endUser.clientName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.endUser.touched && f.endUser.errors" class="text-danger">
+            <mat-error *ngIf="f.endUser.errors.required">End user is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Client coordinator *" formControlName="clientCoordinator" type="text"
+            autocomplete="off" [ngClass]="{ 'is-invalid': f.clientCoordinator.touched && f.clientCoordinator.errors }">
+          <mat-error *ngIf="f.clientCoordinator.touched && f.clientCoordinator.errors" class="text-danger">
+            <mat-error *ngIf="f.clientCoordinator.errors.required">Client coordinator is required</mat-error>
+            <mat-error *ngIf="f.clientCoordinator.invalid && !f.clientCoordinator.errors.required">Enter valid client
+              coordinator
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Enquiry handled by *" formControlName="enquiryHandled" type="text">
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <mat-select placeholder="Location *" formControlName="location" [(value)]="location"
+            [ngClass]="{ 'is-invalid': f.location.touched && f.location.errors }">
+            <mat-option (click)="addLocation();">
+              <mat-icon>add</mat-icon>Add location
+            </mat-option>
+            <mat-option *ngFor="let location of locations" [value]="location.id">
+              {{location.locationName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.location.touched && f.location.errors" class="text-danger">
+            <mat-error *ngIf="f.location.errors.required">Location is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <mat-select placeholder="Scope *" formControlName="scope" [(value)]="scope"
+            [ngClass]="{ 'is-invalid': f.scope.touched && f.scope.errors }">
+            <mat-option (click)="addScope();">
+              <mat-icon>add</mat-icon>Add scope
+            </mat-option>
+            <mat-option *ngFor="let scope of scopes" [value]="scope.id">
+              {{scope.scopeName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.scope.touched && f.scope.errors" class="text-danger">
+            <mat-error *ngIf="f.scope.errors.required">Scope is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <mat-form-field fxFlex>
+          <mat-select placeholder="Work type *" formControlName="workType" [(value)]="workType"
+            [ngClass]="{ 'is-invalid': f.workType.touched && f.workType.errors }">
+            <mat-option value='Own'>Own</mat-option>
+            <mat-option value='Associate'>Associate</mat-option>
+            <mat-option value='Freelancer'>Freelancer</mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.workType.touched && f.workType.errors" class="text-danger">
+            <mat-error *ngIf="f.workType.errors.required">Work type is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Number of days *" formControlName="noOfDays" type="number" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.noOfDays.touched && f.noOfDays.errors }">
+          <mat-error *ngIf="f.noOfDays.touched && f.noOfDays.errors" class="text-danger">
+            <mat-error *ngIf="f.noOfDays.errors.required">Number of days is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Remarks" formControlName="remarks" type="text" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.remarks.touched && f.remarks.errors }">
+        </mat-form-field>
+      </div>
+
+      <div class="mandatoryText">(*) Mandatory fields</div>
+
+      <div align="center">
+        <button class="saveButton" *ngIf='isNew' (click)="save();" [disabled]="!workOrderForm.valid"
+          mat-raised-button>Save</button>
+        <button class="saveButton" *ngIf='isUpdate' (click)="save();" [disabled]="!workOrderForm.valid"
+          mat-raised-button>Update</button>
+
+        <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+</div>

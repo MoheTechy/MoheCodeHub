@@ -1,0 +1,28 @@
+<div class="formPage">
+
+  <div class="heading">Comment</div>
+  <mat-dialog-content>
+
+    <form class="formMain" fxLayout="column" [formGroup]="commentForm">
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Comment *" formControlName="comment" type="text" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.comment.touched && f.comment.errors }">
+          <mat-error *ngIf="f.comment.touched && f.comment.errors" class="text-danger">
+            <mat-error *ngIf="f.comment.errors.required">Comment is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mandatoryText">(*) Mandatory fields</div>
+
+      <div align="center">
+        <button class="saveButton"  (click)="save();" [disabled]="!commentForm.valid"
+          mat-raised-button>Save</button>
+        <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+</div>

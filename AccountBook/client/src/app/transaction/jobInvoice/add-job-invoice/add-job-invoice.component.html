@@ -1,0 +1,99 @@
+<div class="formPage">
+
+  <div class="heading">Add Invoice</div>
+  <mat-dialog-content>
+    <form class="formMain" fxLayout="column" [formGroup]="invoiceForm">
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+    
+            <mat-form-field fxFlex>
+              <input formControlName="invoiceDate" matInput [matDatepicker]="picker"
+                placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+      </div>
+    
+       <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
+            fxLayoutGap.lt-md="0px">
+    
+            <mat-form-field fxFlex>
+                <input matInput placeholder="Remainder *" formControlName="reminder" type="text" autocomplete="off"
+                  [ngClass]="{ 'is-invalid': f.reminder.touched && f.reminder.errors }">
+                <mat-error *ngIf="f.reminder.touched && f.reminder.errors" class="text-danger">
+                  <mat-error *ngIf="f.reminder.errors.required">Reminder is required</mat-error>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex>
+                <input matInput placeholder="Invoice Amount *" formControlName="invoiceAmount" type="text" autocomplete="off"
+                    [ngClass]="{ 'is-invalid': f.invoiceAmount.touched && f.invoiceAmount.errors }">
+                <mat-error *ngIf="f.invoiceAmount.touched && f.invoiceAmount.errors" class="text-danger">
+                  <mat-error *ngIf="f.invoiceAmount.errors.required">Invoice amount is required</mat-error>
+                </mat-error>
+            </mat-form-field>
+
+      </div>
+    
+     <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
+            fxLayoutGap.lt-md="0px">
+    
+            <mat-form-field fxFlex>
+              <mat-select placeholder="Currency Code *" formControlName="currencyCode" [(value)]="currencyCode" 
+                [ngClass]="{ 'is-invalid': f.currencyCode.touched && f.currencyCode.errors }" >
+                <mat-option *ngFor="let cl of currencyList" [value]="cl.id">
+                  {{cl.currencyCode}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.currencyCode.touched && f.currencyCode.errors" class="text-danger">
+                <mat-error *ngIf="f.currencyCode.errors.required">Currency code is required</mat-error>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex>
+                <input matInput placeholder="Comments *" formControlName="comment" type="text" autocomplete="off"
+                  [ngClass]="{ 'is-invalid': f.comment.touched && f.comment.errors }">
+                <mat-error *ngIf="f.comment.touched && f.comment.errors" class="text-danger">
+                  <mat-error *ngIf="f.comment.errors.required">Comment is required</mat-error>
+                </mat-error>
+            </mat-form-field>
+
+      </div>
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
+            fxLayoutGap.lt-md="0px">
+
+            <mat-form-field fxFlex>
+                <mat-select placeholder="Status *" formControlName="status" [(value)]="status" 
+                  [ngClass]="{ 'is-invalid': f.status.touched && f.status.errors }" >
+                  <mat-option *ngFor="let st of statusList" [value]="st.status">
+                    {{st.status}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="f.status.touched && f.status.errors" class="text-danger">
+                  <mat-error *ngIf="f.status.errors.required">Status is required</mat-error>
+                </mat-error>
+              </mat-form-field>
+
+      </div>
+
+      
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <input type="file" formControlName="invoiceDocument" ng2FileSelect [uploader]="uploader"
+          [ngClass]="{ 'is-invalid': f.invoiceDocument.touched && f.invoiceDocument.errors }" />
+      </div>
+    
+          <div class="mandatoryText">(*) Mandatory fields</div>
+    
+          <div align="center">
+            <button class="saveButton" (click)="save();" [disabled]="!invoiceForm.valid"
+              mat-raised-button>Save</button>
+    
+            <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+          </div>
+    
+        </form>
+  </mat-dialog-content>
+</div>

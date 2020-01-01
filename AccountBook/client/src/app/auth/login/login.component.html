@@ -1,0 +1,50 @@
+<div class="full">
+
+  <div class="login-card">
+
+    <mat-toolbar>
+      <!-- <img src="assets/images/icons/cutechlogo.JPG" alt="cuteInspection" style="height: 38px;margin-top: 4px;"> -->
+      <h4 class="cardHeading">Login</h4>
+    </mat-toolbar>
+
+    <mat-card @fade>
+
+
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+        <mat-form-field class="full-width-input">
+          <input matInput placeholder="Login id" formControlName="emailId" required>
+          <mat-error *ngIf="isFieldInvalid('emailId')">
+            Login id is required
+          </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field class="full-width-input">
+
+          <input matInput id="password" type="password" placeholder="Password" formControlName="password" matInput showHideInput required>
+          <i matSuffix class="material-icons" showHideTrigger="password"
+            [showHideStatus]="{ materialIcon: true, id: 'password' }"></i>
+          <mat-error *ngIf="isFieldInvalid('password')">
+            Password is required
+          </mat-error>
+
+        </mat-form-field>
+
+
+        <mat-card-actions>
+          <button class="button" mat-raised-button type="submit" (click)="login()">Login</button>
+        </mat-card-actions>
+
+        <!-- <div style="font-size: 12px;text-align:center">Version No. {{versionNumber}}</div> -->
+
+        <mat-error *ngIf="isError">
+          {{errorMessage}}
+        </mat-error>
+
+        <!-- <a routerLink="/auth/changePassword">Change Password </a> -->
+      </form>
+    </mat-card>
+  </div>
+</div>

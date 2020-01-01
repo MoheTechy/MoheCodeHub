@@ -1,0 +1,76 @@
+<div class="formPage">
+
+  <div class="heading">
+    {{globals.viewName}}
+  </div>
+
+  <form class="formMain" fxLayout="column" [formGroup]="roleForm">
+
+    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Role name *" formControlName="name" type="text" name="name" autocomplete="off"
+          [ngClass]="{ 'is-invalid': f.name.touched && f.name.errors }">
+        <mat-error *ngIf="f.name.touched && f.name.errors" class="text-danger">
+          <mat-error *ngIf="f.name.errors.required">Role name is required</mat-error>
+          <mat-error *ngIf="f.name.invalid && !f.name.errors.required">Enter valid Role name</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex>
+        <input matInput placeholder="Role description" formControlName="description" type="text" name="description"
+          autocomplete="off">
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div class="mandatoryText">(*) Mandatory fields</div>
+
+  <div style="width:100%;overflow-x: none;">
+
+    <div align="right" style="margin-right: 20px;">
+      <mat-checkbox (change)="selectAllReadWrite();">Check all</mat-checkbox>
+    </div>
+
+    <table class="tablePermission" align="center" border="1">
+
+      <tr>
+        <th style="text-align: center;"> Module </th>
+        <th style="text-align: center;"> Permission </th>
+        <th style="text-align: center;"> Read
+          <mat-checkbox (change)="selectAllRead();"></mat-checkbox>
+        </th>
+        <th style="text-align: center;"> Write
+          <mat-checkbox (change)="selectAllWrite();"></mat-checkbox>
+        </th>
+      </tr>
+
+      <tr align="center" *ngFor="let access of permissionData; let i=index">
+        <td> <b>{{access.module}} </b></td>
+        <td> <b>{{access.name}} </b></td>
+        <td align="center">
+          <mat-checkbox *ngIf="(access.isRead !== '')" [checked]="access.isRead"
+            (change)="changeRead(access.id, access.isRead);"></mat-checkbox>
+        </td>
+        <td align="center">
+          <mat-checkbox *ngIf="(access.isWrite !== '')" [checked]="access.isWrite"
+            (change)="changeWrite(access.id, access.isWrite);"></mat-checkbox>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+
+  <br />
+
+  <div class="formPage" align="center">
+    <button class="saveButton" *ngIf="isNew" (click)="save(permissionData);" [disabled]="!roleForm.valid"
+      mat-raised-button>Save</button>
+    <button class="saveButton" *ngIf="isEdit" (click)="save(permissionData);" [disabled]="!roleForm.valid"
+      mat-raised-button>Update</button>
+          
+    <button class="cancelButton" (click)="btnClose()" mat-raised-button>Cancel</button>
+  </div>
+
+</div>

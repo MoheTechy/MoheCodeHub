@@ -1,0 +1,151 @@
+<div class="formPage">
+
+    <div class="heading">{{globals.viewName}}</div>
+    <mat-dialog-content>
+  
+      <form class="formMain" fxLayout="column" [formGroup]="countryForm">
+  
+        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+  
+          <mat-form-field fxFlex>
+            <mat-select  placeholder="Expense Type" formControlName="expenseType" (selectionChange)="typeChanged()">
+              <mat-option *ngFor="let vc of expenseHeads" [value]="vc.id">
+                {{vc.expenseHead}}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="f.expenseType.touched && f.expenseType.errors" class="text-danger">
+              <mat-error *ngIf="f.expenseType.errors.required">Expense type is required</mat-error>
+            </mat-error> -->
+          </mat-form-field>
+  
+          <mat-form-field fxFlex *ngIf="boolObj.rawMaterials">
+            <input matInput placeholder="Raw Meterials" formControlName="rawMaterials" type="text"
+              autocomplete="off" [ngClass]="{ 'is-invalid': f.rawMaterials.touched && f.rawMaterials.errors }">
+            <!-- <mat-error *ngIf="f.rawMaterials.touched && f.others.errors" class="text-danger">
+              <mat-error *ngIf="f.rawMaterials.errors.required">Raw meterials is required</mat-error>
+              <mat-error *ngIf="f.rawMaterials.invalid && !f.others.rawMaterials.required">Enter valid Raw meterials</mat-error>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFlex *ngIf="boolObj.rawMaterials">
+              <input formControlName="expenseDate" matInput [matDatepicker]="picker"
+                placeholder="Expense date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field fxFlex *ngIf="boolObj.companyName">
+            <input matInput placeholder="Company Name" formControlName="companyName" type="text" autocomplete="off"
+              [ngClass]="{ 'is-invalid': f.companyName.touched && f.companyName.errors }">
+            <!-- <mat-error *ngIf="f.companyName.touched && f.companyName.errors" class="text-danger">
+              <mat-error *ngIf="f.companyName.errors.required">Company Name is required</mat-error>
+              <mat-error *ngIf="f.companyName.invalid && !f.companyName.errors.required">Enter valid Comany Name</mat-error>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFlex *ngIf="boolObj.billNo">
+            <input matInput placeholder="Bill No" formControlName="billNo" type="text" autocomplete="off"
+              [ngClass]="{ 'is-invalid': f.billNo.touched && f.billNo.errors }">
+            <!-- <mat-error *ngIf="f.billNo.touched && f.billNo.errors" class="text-danger">
+              <mat-error *ngIf="f.billNo.errors.required">Bill No is required</mat-error>
+              <mat-error *ngIf="f.billNo.invalid && !f.billNo.errors.required">Enter valid Bill No</mat-error>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFlex *ngIf="boolObj.billDate">
+              <input formControlName="billDate" matInput [matDatepicker]="picker1"
+                placeholder="Bill Date">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+
+        </div>
+
+        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+          <mat-form-field fxFlex *ngIf="boolObj.miscDesc">
+            <input matInput placeholder="Miscellenious" formControlName="miscDesc" type="text" autocomplete="off"
+              [ngClass]="{ 'is-invalid': f.miscDesc.touched && f.miscDesc.errors }">
+            <!-- <mat-error *ngIf="f.miscDesc.touched && f.miscDesc.errors" class="text-danger">
+              <mat-error *ngIf="f.miscDesc.errors.required">Company Name is required</mat-error>
+              <mat-error *ngIf="f.miscDesc.invalid && !f.miscDesc.errors.required">Enter valid Comany Name</mat-error>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFlex *ngIf="boolObj.staffType">
+              <mat-select  placeholder="Staff Type" formControlName="staffType" bindValue="vc.value" (selectionChange)="staffTypeChanged()">
+                <mat-option *ngFor="let vc of types" [value]="vc.value">
+                  {{vc.type}}
+                </mat-option>
+              </mat-select>
+              <!-- <mat-error *ngIf="f.staffType.touched && f.staffType.errors" class="text-danger">
+                <mat-error *ngIf="f.staffType.errors.required"></mat-error>
+              </mat-error> -->
+            </mat-form-field>
+
+          <mat-form-field fxFlex *ngIf="boolObj.staffName">
+              <mat-select  placeholder="Staff Name" formControlName="staffName" bindValue="vc.id">
+                <mat-option *ngFor="let vc of staffsList" [value]="vc.id">
+                  {{vc.staffName}}
+                </mat-option>
+              </mat-select>
+            <!-- <mat-error *ngIf="f.staffName.touched && f.staffName.errors" class="text-danger">
+              <mat-error *ngIf="f.staffName.errors.required">Staff Name is required</mat-error>
+              <mat-error *ngIf="f.staffName.invalid && !f.staffName.errors.required">Enter valid Staff Name</mat-error>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFlex *ngIf="boolObj.vehicle">
+            <mat-select  placeholder="Vehicle" formControlName="vehicle" bindValue="vc.id">
+              <mat-option *ngFor="let vc of vehicles" [value]="vc.id">
+                {{vc.vehicle}}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="f.vehicle.touched && f.vehicle.errors" class="text-danger">
+              <mat-error *ngIf="f.vehicle.errors.required"></mat-error>
+            </mat-error> -->
+          </mat-form-field>
+  
+          <mat-form-field fxFlex *ngIf="boolObj.bunkDetails">
+            <input matInput placeholder="Bunk Details" formControlName="bunkDetails" type="text"
+              autocomplete="off" [ngClass]="{ 'is-invalid': f.bunkDetails.touched && f.bunkDetails.errors }">
+            <!-- <mat-error *ngIf="f.bunkDetails.touched && f.others.errors" class="text-danger">
+              <mat-error *ngIf="f.bunkDetails.errors.required">Raw meterials is required</mat-error>
+              <mat-error *ngIf="f.bunkDetails.invalid && !f.others.bunkDetails.required">Enter valid Raw meterials</mat-error>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFlex *ngIf="boolObj.others">
+            <input matInput placeholder="others" formControlName="others" type="text" autocomplete="off"
+              [ngClass]="{ 'is-invalid': f.others.touched && f.others.errors }">
+            <!-- <mat-error *ngIf="f.amount.touched && f.amount.errors" class="text-danger">
+              <mat-error *ngIf="f.amount.errors.required">Amount is required</mat-error>
+              <mat-error *ngIf="f.amount.invalid && !f.amount.errors.required">Enter valid Expense Amount</mat-error>
+            </mat-error> -->
+          </mat-form-field>
+
+          <mat-form-field fxFlex *ngIf="boolObj.amount">
+              <input matInput placeholder="Expense Amount" formControlName="amount" type="text" autocomplete="off"
+                [ngClass]="{ 'is-invalid': f.amount.touched && f.amount.errors }">
+              <!-- <mat-error *ngIf="f.amount.touched && f.amount.errors" class="text-danger">
+                <mat-error *ngIf="f.amount.errors.required">Amount is required</mat-error>
+                <mat-error *ngIf="f.amount.invalid && !f.amount.errors.required">Enter valid Expense Amount</mat-error>
+              </mat-error> -->
+          </mat-form-field>
+
+        </div>
+  
+        <div class="mandatoryText">(*) Mandatory fields</div>
+  
+        <div align="center">
+          <button class="saveButton" *ngIf='isNew' (click)="save();" [disabled]="!countryForm.valid"
+            mat-raised-button>Save</button>
+          <button class="saveButton" *ngIf='isUpdate' (click)="save();" [disabled]="!countryForm.valid"
+            mat-raised-button>Update</button>
+                
+          <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+        </div>
+  
+      </form>
+    </mat-dialog-content>
+  </div>

@@ -1,0 +1,62 @@
+<div class="formPage">
+  <div class="heading">Report template</div>
+
+  <mat-dialog-content>
+
+    <form class="formMain" fxLayout="column" [formGroup]="templateForm">
+      <!-- 
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <input type="file" formControlName="template" ng2FileSelect [uploader]="uploader"
+          [ngClass]="{ 'is-invalid': f.template.touched && f.template.errors }" />
+        <div *ngIf="f.template.touched && f.template.errors" class="text-danger">
+          <div *ngIf="f.template.errors.required">Upload Templates</div>
+        </div> -->
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Template name *" formControlName="templateName" type="text" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.templateName.touched && f.templateName.errors }">
+          <mat-error *ngIf="f.templateName.touched && f.templateName.errors" class="text-danger">
+            <mat-error *ngIf="f.templateName.errors.required">Template name is required</mat-error>
+            <mat-error *ngIf="f.templateName.invalid && !f.templateName.errors.required">Enter valid template name
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+
+          <mat-select placeholder="Scope *" formControlName="scope" [(value)]="scope"
+            [ngClass]="{ 'is-invalid': f.scope.touched && f.scope.errors }">
+            <mat-option (click)="addScope();">
+              <mat-icon>add</mat-icon>Add scope
+            </mat-option>
+            <mat-option *ngFor="let scope of scopes" [value]="scope.id" (click)="getScopeName();">
+              {{scope.scopeName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.scope.touched && f.scope.errors" class="text-danger">
+            <mat-error *ngIf="f.scope.errors.required">Scope is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <input type="file" formControlName="template" ng2FileSelect [uploader]="uploader"
+          [ngClass]="{ 'is-invalid': f.template.touched && f.template.errors }" />
+      </div>
+
+      <div class="mandatoryText">(*) Mandatory fields</div>
+
+      <div align="center">
+        <button class="saveButton" *ngIf='isNew' (click)="save();" [disabled]="!templateForm.valid"
+          mat-raised-button>Save</button>
+        <button class="saveButton" *ngIf='isUpdate' (click)="save();" [disabled]="!templateForm.valid"
+          mat-raised-button>Update</button>
+
+        <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+</div>

@@ -1,0 +1,43 @@
+<div class="example-container">
+
+  <mat-toolbar>
+
+    <img src="assets/images/logo1.JPG" alt="Account Book" style="height: 38px;margin-top: 4px;">
+
+    <button type="button" *ngIf="isLoggedIn" aria-label="Toggle sidenav" mat-icon-button
+      (click)="drawer.toggle();menuDriven()">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+
+    <button class="topright" *ngIf="isLoggedIn" mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+      {{name}}
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openDialog()">
+        <mat-icon> vpn_key</mat-icon>Change password
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>Logout
+      </button>
+    </mat-menu>
+
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container">
+
+    <mat-sidenav #drawer id="drawer" [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="isLoggedIn"
+      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <app-menu-list-item *ngFor="let item of navInfoList" [item]="item"></app-menu-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

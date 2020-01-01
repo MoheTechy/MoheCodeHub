@@ -1,0 +1,205 @@
+<div class="viewPage">
+
+  <div class="heading">{{globals.viewName}}</div>
+
+  <div class="buttonPos">
+    <button class="button" *ngIf="isWrite" mat-raised-button (click)="btnAddNewClick();">
+      <mat-icon mat-icon-button color="white">add</mat-icon>
+      Add
+    </button>
+    <button mat-raised-button class="button" (click)="btnFilter();">
+      <mat-icon mat-icon-button *ngIf="!doFilter">expand_more</mat-icon>
+      <mat-icon mat-icon-button *ngIf="doFilter">expand_less</mat-icon>
+      Filter
+    </button>
+    <button mat-raised-button class="button" (click)="exportXlsx();">
+      <mat-icon mat-icon-button color="white">grid_on</mat-icon>
+      Export xls
+    </button>
+  </div>
+
+  <div class="filterComponents" *ngIf="doFilter">
+    <mat-form-field align="left" class="quarter-width">
+      <input matInput placeholder="Filter" type="text" autocomplete="off" (keyup)='updateFilter($event)'>
+    </mat-form-field>
+  </div>
+
+  <div class="table-container">
+
+    <table style="width: 1500px;" mat-table [dataSource]="dataSource" [class.isMobile]="isMobile" matSort
+      matSortActive="workOrder" matSortDirection="asc" matSortDisableClear>
+
+      <ng-container matColumnDef="workOrder">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Job number</th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"> <span class="mobile-label">Job number</span>{{element.workOrder}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="project">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Project </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"><span class="mobile-label">Project</span>
+          {{element.project}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="enquiryDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Enquiry date </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"> <span class="mobile-label">Enquiry date</span>
+          {{element.enquiryDate}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="client">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Client </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"> <span class="mobile-label">Client</span>{{element.client}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="endUser">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>End user</th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"><span class="mobile-label">End user</span>
+          {{element.endUser}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="clientCoordinator">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Client coordinator </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"><span class="mobile-label">Client coordinator</span>
+          {{element.clientCoordinator}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="enquiryHandled">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Enquiry handled by </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"><span class="mobile-label">Enquiry handled by</span>
+          {{element.enquiryHandled}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Location </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"><span class="mobile-label">Location</span>
+          {{element.location}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="scope">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Scope </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"><span class="mobile-label">Scope</span>
+          {{element.scope}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"><span class="mobile-label">Status</span>
+          {{element.status}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="workType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Work type </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"><span class="mobile-label">Work type</span>
+          {{element.workType}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="noOfDays">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Number of days</th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"><span class="mobile-label">Number of days</span>
+          {{element.noOfDays}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="remarks">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Remarks </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}"><span class="mobile-label">Remarks</span>
+          {{element.remarks}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="view">
+        <th mat-header-cell *matHeaderCellDef>View</th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{
+          'new' : element.status == 'New',
+          'inprogress' : element.status == 'In progress',
+          'cv' : element.status == 'CV & Rate sent',
+          'notawarded' : element.status == 'Not awarded',
+          'awarded' : element.status == 'Awarded'}">
+          <div><span class="mobile-label">View</span>
+            <button class="btn" (click)="btnViewClick(element);" title="Edit">
+              <i class="fa fa-file"></i>
+            </button>
+            <!-- <button class="btn" (click)="deleteTable(element);" title="Delete">
+              <i class="fa fa-trash"></i>
+            </button> -->
+          </div>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+    <div class="emptyRecord" *ngIf="temp.length === 0">No records found<hr></div>
+  </div>
+
+  <mat-paginator [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 15, 20, 25]">
+  </mat-paginator>
+
+</div>

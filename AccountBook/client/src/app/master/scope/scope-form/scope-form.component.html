@@ -1,0 +1,44 @@
+<div class="formPage">
+
+  <div class="heading">{{globals.viewName}}</div>
+  <mat-dialog-content>
+
+    <form class="formMain" fxLayout="column" [formGroup]="scopeForm">
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Income Bill *" formControlName="billEntry" type="text" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.billEntry.touched && f.billEntry.errors }">
+          <mat-error *ngIf="f.billEntry.touched && f.billEntry.errors" class="text-danger">
+            <mat-error *ngIf="f.billEntry.errors.required">Income Bill is required</mat-error>
+            <mat-error *ngIf="f.billEntry.invalid && !f.billEntry.errors.required">Enter valid Income Bill</mat-error>
+          </mat-error>
+        </mat-form-field>        
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Others *" formControlName="others" type="text"
+            autocomplete="off" [ngClass]="{ 'is-invalid': f.others.touched && f.others.errors }">
+          <mat-error *ngIf="f.others.touched && f.others.errors" class="text-danger">
+            <mat-error *ngIf="f.others.errors.required">Others is required</mat-error>
+            <mat-error *ngIf="f.others.invalid && !f.others.errors.required">Enter valid Others</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mandatoryText">(*) Mandatory fields</div>
+
+       
+
+      <div align="center">
+        <button class="saveButton" *ngIf='isNew' (click)="save();" [disabled]="!scopeForm.valid"
+          mat-raised-button>Save</button>
+        <button class="saveButton" *ngIf='isUpdate' (click)="save();" [disabled]="!scopeForm.valid"
+          mat-raised-button>Update</button>
+              
+        <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+</div>

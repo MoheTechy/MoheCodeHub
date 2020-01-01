@@ -1,0 +1,35 @@
+<div class="formPage">
+
+  <div class="heading">
+    Report templates
+
+    <div class="formPage" style="float: right !important;">
+      <button class="button" mat-raised-button (click)="btnAddNewClick();">
+        <mat-icon mat-icon-button color="white">add</mat-icon>
+        Add
+      </button>
+    </div>
+  </div>
+
+  <div style="width:100%;overflow-x: none;">
+
+    <table id="transactions" align="center">
+
+      <tr>
+        <th colspan="2" style="text-align: center;"> Report templates </th>
+      </tr>
+
+      <tr  *ngFor="let reportTemplate of reportTemplates; let i=index">
+        <td>
+          <mat-checkbox [checked]="reportTemplate.isChecked" (change)="onCheckboxChecked($event, reportTemplate)"></mat-checkbox>
+        </td>
+        <td style="float: left !important;"> <b>{{reportTemplate.templateName}} </b></td>
+      </tr>
+
+    </table>
+  </div>
+  <div class="formPage" align="center">
+    <button class="saveButton" (click)="add(reportTemplates);" mat-raised-button>Add to download</button>
+    <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="formPage">
+
+  <div class="heading">{{globals.viewName}}</div>
+  <mat-dialog-content>
+
+    <form class="formMain" fxLayout="column" [formGroup]="freelancerForm">
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="First name*" formControlName="firstName" type="text" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.firstName.touched && f.firstName.errors }">
+          <mat-error *ngIf="f.firstName.touched && f.firstName.errors" class="text-danger">
+            <mat-error *ngIf="f.firstName.errors.required">First name is required</mat-error>
+            <mat-error *ngIf="f.firstName.invalid && !f.firstName.errors.required">Enter valid first name</mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Last name *" formControlName="lastName" type="text" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.lastName.touched && f.lastName.errors }">
+          <mat-error *ngIf="f.lastName.touched && f.lastName.errors" class="text-danger">
+            <mat-error *ngIf="f.lastName.errors.required">Last name is required</mat-error>
+            <mat-error *ngIf="f.lastName.invalid && !f.lastName.errors.required">Enter valid last name</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Email *" formControlName="email" type="text" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.email.touched && f.email.errors }">
+          <mat-error *ngIf="f.email.touched && f.email.errors" class="text-danger">
+            <mat-error *ngIf="f.email.errors.required">Email is required</mat-error>
+            <mat-error *ngIf="f.email.invalid && !f.email.errors.required">Enter valid email</mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Mobile *" formControlName="mobile" type="number" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.mobile.touched && f.mobile.errors }">
+          <mat-error *ngIf="f.mobile.touched && f.mobile.errors" class="text-danger">
+            <mat-error *ngIf="f.mobile.errors.required">Mobile is required</mat-error>
+            <mat-error *ngIf="f.mobile.invalid && !f.mobile.errors.required">Enter valid mobile </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <mat-form-field fxFlex>
+          <textarea matInput placeholder="Address *" formControlName="address" type="text" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.address.touched && f.address.errors }"></textarea>
+          <mat-error *ngIf="f.address.touched && f.address.errors" class="text-danger">
+            <mat-error *ngIf="f.address.errors.required">Address is required</mat-error>
+            <mat-error *ngIf="f.address.invalid && !f.address.errors.required">Enter valid address</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <!-- <mat-form-field fxFlex>
+          <button class="button" mat-raised-button>Upload resume *</button>
+          <ngx-mat-file-input formControlName="resume"
+            [ngClass]="{ 'is-invalid': f.resume.touched && f.resume.errors }">
+          </ngx-mat-file-input>
+          <mat-error *ngIf="f.resume.touched && f.resume.errors" class="text-danger">
+            <mat-error *ngIf="f.resume.errors.required">Resume is required</mat-error>
+          </mat-error>
+        </mat-form-field> -->
+        <input type="file" formControlName="resume" ng2FileSelect [uploader]="uploader"
+          [ngClass]="{ 'is-invalid': f.resume.touched && f.resume.errors }" />
+        <div *ngIf="f.resume.touched && f.resume.errors" class="text-danger">
+          <div *ngIf="f.resume.errors.required">Upload resume</div>
+        </div>
+
+      </div>
+
+      <div class="mandatoryText">(*) Mandatory fields</div>
+
+      <div align="center">
+        <button class="saveButton" *ngIf='isNew' (click)="save();"
+          [disabled]="!freelancerForm.valid" mat-raised-button>Save</button>
+        <button class="saveButton" *ngIf='isUpdate' (click)="save();"
+          [disabled]="!freelancerForm.valid" mat-raised-button>Update</button>
+
+        <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+</div>

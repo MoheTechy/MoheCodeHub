@@ -1,0 +1,44 @@
+<div class="formPage">
+
+  <div class="heading">Add schedule</div>
+  <mat-dialog-content>
+
+    <form class="formMain" fxLayout="column" [formGroup]="jobScheduleForm">
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <mat-form-field fxFlex>
+          <input formControlName="inspectionDate" matInput [matDatepicker]="picker"
+            placeholder="Choose a inspection date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
+        fxLayoutGap.lt-md="0px">
+
+        <mat-form-field fxFlex>
+          <mat-select placeholder="Inspector *" formControlName="inspector" [(value)]="inspector"
+            [ngClass]="{ 'is-invalid': f.inspector.touched && f.inspector.errors }">
+            <mat-option *ngFor="let inspector of inspectors" [value]="inspector.inspectorId">
+              {{inspector.firstName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.inspector.touched && f.inspector.errors" class="text-danger">
+            <mat-error *ngIf="f.inspector.errors.required">Inspector is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mandatoryText">(*) Mandatory fields</div>
+
+      <div align="center">
+        <button class="saveButton" (click)="save();" [disabled]="!jobScheduleForm.valid" mat-raised-button>Save</button>
+
+        <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+</div>

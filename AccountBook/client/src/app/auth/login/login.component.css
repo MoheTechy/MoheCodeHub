@@ -1,0 +1,49 @@
+.login-card {
+  display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    padding-top: 40px;
+    max-width: 300px;
+   
+  }
+
+  .logo{
+      height:96%;
+      margin-left: -14px;
+  }
+  
+  .titleStyle{
+      font-size: 16px;
+      font-weight: 800;
+  }
+
+  .login-form{
+      width: 100%;
+  }
+  
+  .full-width-input {
+    width: 100%;
+  }
+
+  .full{
+      background-image: url("../../../assets/images/BG011.jpg");
+      height: -webkit-fill-available !important; 
+      background-position: fixed !important;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+  
+  mat-form-field{
+    font-size: 14px;
+  }
+  mat-card-actions{
+    margin-left: 30%;
+  }
+  mat-error{
+    font-size: 12px;
+  }
+
+  .show-hide-password .btn-primary{
+    float: right;
+  }

@@ -1,0 +1,78 @@
+<div class="viewPage">
+
+  <div class="heading">
+    {{globals.viewName}}
+  </div>
+
+  <div class="buttonPos">
+    <button class="button" *ngIf="isWrite" mat-raised-button (click)="btnAddNewClick();">
+      <mat-icon mat-icon-button color="white">add</mat-icon>
+      Add
+    </button>
+    <button mat-raised-button class="button" (click)="btnFilter();">
+      <mat-icon mat-icon-button *ngIf="!doFilter">expand_more</mat-icon>
+      <mat-icon mat-icon-button *ngIf="doFilter">expand_less</mat-icon>
+      Filter
+    </button>
+    <button mat-raised-button class="button" (click)="exportXlsx();">
+      <mat-icon mat-icon-button color="white">grid_on</mat-icon>
+      Export xls
+    </button>
+  </div>
+
+  <div class="filterComponents" *ngIf="doFilter">
+    <mat-form-field align="left">
+      <input matInput placeholder="Filter" type="text" autocomplete="off" (keyup)='updateFilter($event)'>
+    </mat-form-field>
+  </div>
+
+  <div class="table-container">
+
+    <table style="width:100%;" mat-table [dataSource]="dataSource" [class.isMobile]="isMobile" matSort
+      matSortActive="name" matSortDirection="asc" matSortDisableClear>
+
+      <ng-container matColumnDef="edit" sticky>
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <div><span class="mobile-label">Action</span>
+              <button class="btn" (click)="getTable(element);" title="Edit">
+                <i class="fa fa-pencil"></i>
+              </button> 
+              <button class="btn" (click)="deleteTable(element);" title="Delete">
+                <i class="fa fa-trash"></i>
+              </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Role name </th>
+        <td mat-cell *matCellDef="let element"> <span class="mobile-label">Role name</span>{{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Role description </th>
+        <td mat-cell *matCellDef="let element"><span class="mobile-label">Role description</span>
+          {{element.description}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created date </th>
+        <td mat-cell *matCellDef="let element"><span class="mobile-label">Created date</span>
+          {{element.createdDate}} </td>
+      </ng-container>
+
+   
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+    <div class="emptyRecord" *ngIf="temp.length === 0">No records found<hr></div>
+  </div>
+
+  <mat-paginator [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 15, 20, 25]">
+  </mat-paginator>
+
+</div>

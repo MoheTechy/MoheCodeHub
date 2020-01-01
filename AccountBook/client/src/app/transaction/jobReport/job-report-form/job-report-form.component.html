@@ -1,0 +1,48 @@
+<div class="formPage">
+  <div class="heading">Report upload</div>
+
+  <mat-dialog-content>
+
+    <form class="formMain" fxLayout="column" [formGroup]="reportForm">
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Report name *" formControlName="reportName" type="text" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.reportName.touched && f.reportName.errors }">
+          <mat-error *ngIf="f.reportName.touched && f.reportName.errors" class="text-danger">
+            <mat-error *ngIf="f.reportName.errors.required">Report name is required</mat-error>
+            <mat-error *ngIf="f.reportName.invalid && !f.reportName.errors.required">Enter valid report name
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <mat-select placeholder="Client verified? *" formControlName="clientVerified" [(value)]="clientVerified"
+            [ngClass]="{ 'is-invalid': f.clientVerified.touched && f.clientVerified.errors }">
+            <mat-option value="Yes">Yes</mat-option>
+            <mat-option value="No">No</mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.clientVerified.touched && f.clientVerified.errors" class="text-danger">
+            <mat-error *ngIf="f.clientVerified.errors.required">Client verified is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+        <input type="file" formControlName="report" ng2FileSelect [uploader]="uploader"
+          [ngClass]="{ 'is-invalid': f.report.touched && f.report.errors }" />
+      </div>
+
+      <div class="mandatoryText">(*) Mandatory fields</div>
+
+      <div align="center">
+        <button class="saveButton" (click)="save();" [disabled]="!reportForm.valid" mat-raised-button>Save</button>
+
+        <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+</div>

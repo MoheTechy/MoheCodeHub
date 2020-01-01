@@ -1,0 +1,8 @@
+<h4 class="modelText" align="center"> Your account is {{lockStatus}}.
+  Do you want to {{expectStatus}}? </h4>
+  
+<div align="center">
+  <button class="saveButton" (click)="confirm()" mat-raised-button>Yes</button>
+      
+  <button class="cancelButton" (click)="btnClose() " mat-raised-button>No</button>
+</div>

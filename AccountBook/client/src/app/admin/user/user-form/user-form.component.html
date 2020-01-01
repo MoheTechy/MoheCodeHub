@@ -1,0 +1,78 @@
+<div class="formPage">
+
+  <div class="heading">{{globals.viewName}}</div>
+
+  <mat-dialog-content>
+
+    <form class="formMain" fxLayout="column" [formGroup]="userForm">
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Name *" formControlName="name" type="text" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.name.touched && f.name.errors }">
+          <mat-error *ngIf="f.name.touched && f.name.errors" class="text-danger">
+            <mat-error *ngIf="f.name.errors.required">Name is required</mat-error>
+            <mat-error *ngIf="f.name.invalid && !f.name.errors.required">Enter valid name</mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Login id *" formControlName="loginId" type="type"
+            [ngClass]="{ 'is-invalid': f.loginId.touched && f.loginId.errors }">
+          <mat-error *ngIf="f.loginId.touched && f.loginId.errors" class="text-danger">
+            <mat-error *ngIf="f.loginId.errors.required">Login id is required</mat-error>
+            <mat-error *ngIf="f.loginId.invalid && !f.loginId.errors.required">Login valid login id</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Email *" formControlName="emailId" type="email"
+            [ngClass]="{ 'is-invalid': f.emailId.touched && f.emailId.errors }">
+          <mat-error *ngIf="f.emailId.touched && f.emailId.errors" class="text-danger">
+            <mat-error *ngIf="f.emailId.errors.required">Email is required</mat-error>
+            <mat-error *ngIf="f.emailId.invalid && !f.emailId.errors.required">Enter valid email</mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex>
+          <input matInput placeholder="Mobile number *" formControlName="contactNumber" type="number" autocomplete="off"
+            [ngClass]="{ 'is-invalid': f.contactNumber.touched && f.contactNumber.errors }">
+          <mat-error *ngIf="f.contactNumber.touched && f.contactNumber.errors" class="text-danger">
+            <mat-error *ngIf="f.contactNumber.errors.required">Mobile number is required</mat-error>
+            <mat-error *ngIf="f.contactNumber.invalid && !f.contactNumber.errors.required">Enter valid mobile number
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+        <mat-form-field fxFlex>
+          <mat-select placeholder="Roles *" formControlName="role" [(value)]="selected" multiple
+            [ngClass]="{ 'is-invalid': f.role.touched && f.role.errors }">
+            <mat-option *ngFor="let role of roles" [value]="role">
+              {{role}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="f.role.touched && f.role.errors" class="text-danger">
+            <mat-error *ngIf="f.role.errors.required">Role is required</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="mandatoryText">(*) Mandatory fields</div>
+
+
+      <div align="center">
+        <button class="saveButton" *ngIf='isNew' (click)="save();" [disabled]="!userForm.valid"
+          mat-raised-button>Save</button>
+        <button class="saveButton" *ngIf='isUpdate' (click)="save();" [disabled]="!userForm.valid"
+          mat-raised-button>Update</button>
+
+        <button class="cancelButton" (click)="btnClose() " mat-raised-button>Cancel</button>
+      </div>
+
+    </form>
+  </mat-dialog-content>
+</div>

@@ -1,0 +1,322 @@
+<div class="viewPage">
+
+  <div class="heading">Job</div>
+
+  <div class="buttonPos">
+    <button class="button" mat-raised-button (click)="addComment();">
+      <mat-icon mat-icon-button color="white">comment</mat-icon>
+      Comment
+    </button>
+
+    <button mat-raised-button class="button">
+      <mat-icon mat-icon-button color="white">timeline</mat-icon>
+      Status
+    </button>
+
+    <button mat-raised-button class="button" (click)="addCV();">
+      <mat-icon mat-icon-button color="white">attachment</mat-icon>
+      Attach CV
+    </button>
+
+    <button mat-raised-button class="button" (click)="getTable();">
+      <mat-icon mat-icon-button color="white">create</mat-icon>
+      Edit
+    </button>
+
+    <button mat-raised-button class="button" (click)="viewAllJob();">
+      <mat-icon mat-icon-button color="white">filter_copy</mat-icon>
+      View all
+    </button>
+  </div>
+
+  <div class="row ">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" style="margin-top: 20px;">
+      <table id="transaction">
+
+        <tr>
+          <th>Job number:</th>
+          <td>{{jobByIdData.workOrder}}</td>
+          <th>Enquiry date:</th>
+          <td>{{jobByIdData.enquiryDate}}</td>
+        </tr>
+
+        <tr>
+          <th>Client: </th>
+          <td>{{jobByIdData.client}}</td>
+          <th>End user:</th>
+          <td>{{jobByIdData.endUser}}</td>
+        </tr>
+
+        <tr>
+          <th>Locations: </th>
+          <td colspan="3">{{jobByIdData.location}}</td>
+        </tr>
+
+        <tr>
+          <th>Number of days:</th>
+          <td colspan="3">{{jobByIdData.noOfDays}}</td>
+        </tr>
+      </table>
+
+      <div style="margin-top: 20px;" class="subHeading">Submit resume</div>
+
+      <table id="transactions">
+
+        <tr>
+          <th> S.No </th>
+          <th> Name </th>
+          <th> Email </th>
+          <th> Mobile </th>
+          <th> Address </th>
+          <th> Resume </th>
+          <th> Delete
+          </th>
+        </tr>
+
+        <tr *ngFor="let resumeData of resumeDataByJobId; let i=index">
+          <td>{{i+1}}.</td>
+          <td>{{resumeData.firstName}}</td>
+          <td>{{resumeData.email}}</td>
+          <td>{{resumeData.mobile}}</td>
+          <td>{{resumeData.address}}</td>
+          <td *ngIf="resumeData.type!=1"> <button class="btn" (click)="downloadResume(resumeData);">
+              <i class="fa fa-download"></i>
+            </button></td>
+          <td *ngIf="resumeData.type==1"></td>
+          <td> <button class="btn" (click)="deleteResume(resumeData);">
+              <i class="fa fa-trash"></i>
+            </button></td>
+        </tr>
+        <tr>
+          <td *ngIf="!isResume" colspan="7">No resumes to display</td>
+        </tr>
+      </table>
+
+      <div style="margin-top: 20px;" class="subHeading">Schedule
+        <button mat-raised-button class="txnButton" (click)="addSchedule();" [disabled]="isSchedule">
+          <mat-icon mat-icon-button color="white">add</mat-icon>
+          Add
+        </button>
+      </div>
+
+      <table id="transactions">
+
+        <tr>
+          <th> S.No </th>
+          <th> Inspection date </th>
+          <th> Inspector</th>
+          <th> Date</th>
+          <th> Re-schedule</th>
+        </tr>
+
+        <tr *ngFor="let scheduleDataByJob of scheduleDataByJobId; let i=index">
+          <td>{{i+1}}.</td>
+          <td>{{scheduleDataByJob.inspectionDate}}</td>
+          <td>{{scheduleDataByJob.firstName}}</td>
+          <td>{{scheduleDataByJob.createdDate}}</td>
+          <td> <button class="btn" (click)="addSchedule();" *ngIf="i+1==scheduleDataByJobId.length">
+              <i class="fa fa-plus"></i>
+            </button></td>
+        </tr>
+
+        <tr *ngIf="!isSchedule">
+          <td colspan="6">No schedules to display</td>
+        </tr>
+      </table>
+
+
+      <div style="margin-top: 20px;" class="subHeading">Report Upload
+        <button mat-raised-button class="txnButton" (click)="addReport();">
+          <mat-icon mat-icon-button color="white">add</mat-icon>
+          Add
+        </button>
+      </div>
+
+      <table id="transactions">
+
+        <tr>
+          <th> S.No </th>
+          <th> Report </th>
+          <th> View</th>
+          <th> Client verified?</th>
+          <th> Delete</th>
+        </tr>
+
+        <tr *ngFor="let report of reportDataByJobId; let i=index">
+          <td>{{i+1}}.</td>
+          <td>{{report.reportName}}</td>
+          <td> <button class="btn" (click)="downloadReport(report);">
+              <i class="fa fa-download"></i>
+            </button></td>
+          <td>{{report.clientVerified}}</td>
+          <td> <button class="btn" (click)="deleteReport(report);">
+              <i class="fa fa-trash"></i>
+            </button></td>
+        </tr>
+
+        <tr *ngIf="!isReport">
+          <td colspan="6">No uploaded report to display</td>
+        </tr>
+      </table>
+
+      <div style="margin-top: 20px;" class="subHeading">Invoice
+        <button mat-raised-button class="txnButton" (click)="addInvoice()">
+          <mat-icon mat-icon-button color="white">add</mat-icon>
+          Add
+        </button>
+      </div>
+      <table id="transactions">
+        <tr>
+          <th>S.No</th>
+          <th>Date</th>
+          <th>Invoice</th>
+          <th>Remainder</th>
+          <th>Uploaded document</th>
+          <th>Invoice amount</th>
+          <th>Currency code</th>
+          <th>Comments</th>
+          <th>Status</th>
+        </tr>
+
+        <tr *ngFor="let invoice of invoiceDatas; let i=index">
+          <td>{{i+1}}.</td>
+          <td>{{invoice.invoiceDate}}</td>
+          <td> {{invoice.invoice}}</td>
+          <td>{{invoice.reminder}}</td>
+          <td> <button class="btn" (click)="downloadInvoice(invoice);">
+              <i class="fa fa-download"></i>
+            </button></td>
+          <td>{{invoice.invoiceAmount}}</td>
+          <td>{{invoice.currencyCode}}</td>
+          <td>{{invoice.comments}}</td>
+          <td>{{invoice.status}}</td>
+        </tr>
+
+        <tr *ngIf="!isInvoice">
+          <td colspan="9">No invoices to display</td>
+        </tr>
+      </table>
+
+      <div style="margin-top: 20px;" class="subHeading">Associate/Freelancer payment
+        <button mat-raised-button class="txnButton" (click)="addPayment()">
+          <mat-icon mat-icon-button color="white">add</mat-icon>
+          Add
+        </button>
+      </div>
+      <table id="transactions">
+        <tr>
+          <th>S.No</th>
+          <th>Date</th>
+          <th>Invoice</th>
+          <th>Payment status</th>
+          <th>Uploaded document</th>
+          <th>Invoice amount</th>
+          <th>Currency code</th>
+          <th>PR#</th>
+          <th>Status</th>
+        </tr>
+
+        <tr *ngFor="let payment of paymentDatas; let i=index">
+          <td>{{i+1}}.</td>
+          <td>{{payment.paymentDate}}</td>
+          <td> {{payment.invoice}}</td>
+          <td>{{payment.paymentStatus}}</td>
+          <td> <button class="btn" (click)="downloadPayment(payment);">
+              <i class="fa fa-download"></i>
+            </button></td>
+          <td>{{payment.invoiceAmount}}</td>
+          <td>{{payment.currencyCode}}</td>
+          <td>{{payment.pr}}</td>
+          <td>{{payment.status}}</td>
+        </tr>
+
+        <tr *ngIf="!isPayment">
+          <td colspan="9">No payment to display</td>
+        </tr>
+      </table>
+
+
+      <div style="margin-top: 20px;" class="subHeading">Comments</div>
+
+      <table id="transactions">
+
+        <tr>
+          <th> S.No </th>
+          <th> Comment </th>
+          <th> Delete
+          </th>
+        </tr>
+
+        <tr *ngFor="let jobComment of jobComments; let i=index">
+          <td>{{i+1}}.</td>
+          <td>{{jobComment.comment}}</td>
+          <td> <button class="btn" (click)="deleteComment(jobComment);" title="Delete">
+              <i class="fa fa-trash"></i>
+            </button></td>
+        </tr>
+        <tr *ngIf="!isComment">
+          <td colspan="4">No comments to display</td>
+        </tr>
+      </table>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 " style="margin-top: 20px;">
+      <table id="transactions">
+
+        <tr>
+          <th colspan="4">Job number key</th>
+        </tr>
+        <tr>
+          <td style="width: 20% !important"><button class="btn" (click)="previousData(jobNumber);">
+              <i class="fa fa-arrow-left"></i>
+            </button></td>
+          <td colspan="2" style="width: 60% !important">
+            <mat-select [(value)]="jobNumber">
+              <mat-option *ngFor="let allJobData of allJobDatas" [value]="allJobData.id"
+                (click)="getData(allJobData.id);">
+                {{allJobData.workOrder}}
+              </mat-option>
+            </mat-select>
+          </td>
+          <td style="width: 20% !important"><button class="btn" (click)="nextData(jobNumber);">
+              <i class="fa fa-arrow-right"></i>
+            </button></td>
+        </tr>
+
+        <tr>
+          <th colspan="4">Status </th>
+
+        </tr>
+        <tr>
+          <td colspan="4">{{jobByIdData.status}}
+          </td>
+        </tr>
+
+        <tr>
+          <th colspan="3" (click)="template.uploadAll();" style="cursor:pointer !important">Download template</th>
+          <!-- <th (click)="fileInputs.click()" style="cursor:pointer !important">Add
+            <span
+              style="visibility: hidden; position: absolute; overflow: hidden; width: 0px; height:0px;border:none;margin:0; padding:0">
+              <input type="file" #fileInputs multiple ng2FileSelect [uploader]="template" />
+            </span></th>
+        </tr> -->
+          <th (click)="showTemplates();" style="cursor:pointer !important">Add</th>
+
+          <!-- <tr *ngFor="let item of template.queue">
+          <td  *ngIf="templateList.length == 0" colspan="3">{{item.file.name}}</td>
+          <td  *ngIf="templateList.length == 0" (click)="template.uploadAll();">Upload All</td>
+        </tr> -->
+
+        <tr *ngFor="let items of checkedTemplate; let i = index">
+          <td colspan="3">{{items.templateName}}</td>
+          <td (click)="download(items);" style="cursor:pointer !important"> Download</td>
+        </tr>
+        <tr *ngIf="!checkedTemplate">
+          <td colspan="4">No templates to display</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
